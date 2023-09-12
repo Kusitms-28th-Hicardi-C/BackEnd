@@ -1,0 +1,8 @@
+version: '3'
+services:
+  hicardi:
+    image: eojin0814/hicardi
+    container_name: hicardi
+    restart: always
+    ports:
+      - 8080:8080
