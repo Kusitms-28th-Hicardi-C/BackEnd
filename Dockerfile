@@ -1,3 +1,3 @@
-FROM openjdk:11
-COPY ./build/libs/partstudy-backend-0.0.1-SNAPSHOT.jar app.jar
+FROM openjdk:17
+COPY ./build/libs/hiCardi-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
