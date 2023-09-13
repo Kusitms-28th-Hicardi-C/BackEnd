@@ -5,6 +5,7 @@ import com.example.hicardi.domain.user.dto.LoginResponseDTO;
 import com.example.hicardi.domain.user.dto.SignUpRequestDTO;
 import com.example.hicardi.domain.user.entity.User;
 import com.example.hicardi.domain.user.repository.UserRepository;
+import com.example.hicardi.global.util.LoginUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -77,8 +78,8 @@ public class UserService {
     
     //세션 처리
     public void handleSession(HttpSession session, String loginId) {
-        session.setAttribute("UserId",loginId);
-        System.out.println("session : "+ session.getAttribute("UserId"));
+        session.setAttribute(LoginUtil.LOGIN_KEY,loginId);
+        System.out.println("session : "+ session.getAttribute(LoginUtil.LOGIN_KEY));
         // 세션의 수명을 설정 -> 1시간
         session.setMaxInactiveInterval(60 * 60 * 24);
     }

@@ -13,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 @Slf4j
 public class cartResponseDTO {
+    private int quantity; //개수
+
     public cartResponseDTO(Cart modifiedCart) {
+        this.quantity=modifiedCart.getQuantity();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.hicardi.domain.cart.entity;
 
 import com.example.hicardi.domain.cart.dto.CartRequestDTO;
+import com.example.hicardi.domain.product.entity.Product;
 import com.example.hicardi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,17 +17,21 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_Id")
+    @Column(name = "cart_id")
     private Long cartId;
 
     @Column(name = "quantity")
-    private Long quantity; //수량
+    private int quantity; //수량
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "member_id")
     private User user;
 
-    public void updateCart(CartRequestDTO dto) {
-        setQuantity(dto.getQuantity());
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    public void updateQuantity(int updateQuantity) {
+        setQuantity(updateQuantity);
     }
 }
