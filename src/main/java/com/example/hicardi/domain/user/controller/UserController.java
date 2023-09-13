@@ -3,7 +3,10 @@ package com.example.hicardi.domain.user.controller;
 import com.example.hicardi.domain.user.dto.LoginRequestDTO;
 import com.example.hicardi.domain.user.dto.LoginResponseDTO;
 import com.example.hicardi.domain.user.dto.SignUpRequestDTO;
+import com.example.hicardi.domain.user.entity.User;
 import com.example.hicardi.domain.user.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 @Slf4j
+@SessionAttributes("user")
 public class UserController {
 
     private final UserService userService;
@@ -54,11 +58,13 @@ public class UserController {
     //로그인
     @PostMapping("/sign-in")
     public ResponseEntity<?> signIn(
-            @Validated @RequestBody LoginRequestDTO dto
+            @Validated @RequestBody LoginRequestDTO dto, HttpServletRequest request
     ){
         try{
             System.out.println("로그인 시 dto : " +dto);
             LoginResponseDTO responseDTO = userService.authenticate(dto);
+            //세션 처리
+            userService.handleSession(request.getSession(),dto.getLoginId());
             return ResponseEntity.ok().body(responseDTO);
         }catch (Exception e){
             e.printStackTrace();
