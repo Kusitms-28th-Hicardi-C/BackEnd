@@ -5,6 +5,7 @@ import com.example.hicardi.domain.user.dto.LoginResponseDTO;
 import com.example.hicardi.domain.user.dto.SignUpRequestDTO;
 import com.example.hicardi.domain.user.entity.User;
 import com.example.hicardi.domain.user.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,7 @@ public class UserService {
         System.out.println("user dbPassword : "+dbPassword);
 
         if(user==null){
-            throw new RuntimeException("가입된 회웝이 아닙니다.");
+            throw new RuntimeException("회원가입을 먼저 진행해주세요");
         }else {
             //패스워드를 검증
             if(rawPassword.equals(dbPassword)){
@@ -72,5 +73,13 @@ public class UserService {
                 throw new RuntimeException("비밀번호가 틀렸습니다");
             }
         }
+    }
+    
+    //세션 처리
+    public void handleSession(HttpSession session, String loginId) {
+        session.setAttribute("UserId",loginId);
+        System.out.println("session : "+session.getAttribute("UserId"));
+        // 세션의 수명을 설정 -> 1시간
+        session.setMaxInactiveInterval(60 * 60 * 24);
     }
 }
