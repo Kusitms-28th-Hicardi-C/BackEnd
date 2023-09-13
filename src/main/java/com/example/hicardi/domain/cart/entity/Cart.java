@@ -1,5 +1,6 @@
 package com.example.hicardi.domain.cart.entity;
 
+import com.example.hicardi.domain.cart.dto.CartRequestDTO;
 import com.example.hicardi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,4 +25,8 @@ public class Cart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void updateCart(CartRequestDTO dto) {
+        setQuantity(dto.getQuantity());
+    }
 }
