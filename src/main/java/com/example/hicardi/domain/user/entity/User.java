@@ -10,7 +10,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -35,7 +37,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private BUSINESS businessClassification;
 
-    @Column(name = "login_id", nullable = false)
+    @Column(name = "login_id", nullable = false, unique = true)
     private String loginId;
 
     @Column(name = "password", nullable = false)
@@ -66,8 +68,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private GENDER gender;
 
-//    @Column(name = "birth_date", nullable = false)
-//    private Date birthDate;
+    @Column(name = "birth_date", nullable = false)
+    private String birthDate;
 
     @Column(name = "ykiho")
     private String ykiho;
