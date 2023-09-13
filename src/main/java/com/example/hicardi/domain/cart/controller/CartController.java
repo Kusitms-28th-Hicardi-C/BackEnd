@@ -1,6 +1,7 @@
 package com.example.hicardi.domain.cart.controller;
 
 import com.example.hicardi.domain.cart.dto.CartRequestDTO;
+import com.example.hicardi.domain.cart.dto.cartResponseDTO;
 import com.example.hicardi.domain.cart.service.CartService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,9 @@ public class CartController {
     @PostMapping("/{productId}")
     public ResponseEntity<?> addCartItem(CartRequestDTO dto,HttpServletRequest request) {
         String userId = (String) request.getAttribute("UserId");
-        cartService.addCart(userId,dto);
+        cartResponseDTO cartResponseDTO = cartService.addCart(userId, dto);
 
-        return ResponseEntity.ok().body();
+        return ResponseEntity.ok().body(cartResponseDTO);
     }
     //장바구니 전체 조회
 

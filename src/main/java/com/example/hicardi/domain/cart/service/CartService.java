@@ -1,8 +1,10 @@
 package com.example.hicardi.domain.cart.service;
 
 import com.example.hicardi.domain.cart.dto.CartRequestDTO;
+import com.example.hicardi.domain.cart.dto.cartResponseDTO;
 import com.example.hicardi.domain.cart.entity.Cart;
 import com.example.hicardi.domain.cart.repository.CartRepository;
+import com.example.hicardi.domain.user.entity.User;
 import com.example.hicardi.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,27 +19,19 @@ public class CartService {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
 
-    public void addCart(String userId, CartRequestDTO dto) {
-        boolean isExist = cartRepository.existsUserIdAndProductId(userId, dto.getProductId());
-        if(isExist==false){
-//            cartRepository.save(dto.toEntity(userId));
+    public cartResponseDTO addCart(String userId, CartRequestDTO dto) {
+
+        boolean isExist = cartRepository.existsUserIdAndProductId(userId, dto.getProductId()); //유저가 저장한 제품이 장바구니에 있는가?
+        Cart modifiedCart;
+
+        if(isExist==false){//장바구니에 없다면 저장
+            User user = userRepository.findByLoginId(userId);
+            modifiedCart=cartRepository.save(dto.toEntity(user));
+        } else{//담으려는 상품이 장바구니에 이미 존재한다면 수량만 증가
+            Cart cart = cartRepository.findByUserId(userId);
+            cart.updateCart(dto);
+            modifiedCart = cartRepository.save(cart);
         }
-
-        Cart cart = cartRepository.findByUserId(userId);
-
-        //장바구니에 제품이 아예 없다면
-        if(cart==null){
-            cart = dto.toEntity();
-            cartRepository.save(cart);
-        }
-
-        // 담으려는 상품이 장바구니에 존재하지 않는다면 카트상품 생성 후 추가
-
-
-        //담으려는 상품이 장바구니에 이미 존재한다면 수량만 증가
-
-
-
-
+        return new cartResponseDTO(modifiedCart);
     }
 }

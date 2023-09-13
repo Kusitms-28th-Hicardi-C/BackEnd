@@ -18,11 +18,11 @@ public class CartRequestDTO {
     private Long quantity; //개수
     private User user;
 
-    public Cart toEntity(){
+    public Cart toEntity(User user){
         return Cart.builder()
 //                .productId(this.productId)
                 .quantity(this.quantity)
-                .user(this.user)
+                .user(user)
                 .build();
     }
 }
