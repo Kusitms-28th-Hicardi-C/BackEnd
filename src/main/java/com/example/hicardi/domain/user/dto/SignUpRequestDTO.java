@@ -25,7 +25,7 @@ public class SignUpRequestDTO {
     private String phoneNumber;
     private String email;
     private GENDER gender;
-//    private Date birthDate;
+    private String birthDate;
     private String ykiho;
 
     public User toEntity() {
@@ -42,7 +42,7 @@ public class SignUpRequestDTO {
                 .phoneNumber(this.phoneNumber)
                 .email(this.email)
                 .gender(this.gender)
-//                .birthDate(this.birthDate)
+                .birthDate(this.birthDate)
                 .ykiho(this.ykiho)
                 .build();
     }

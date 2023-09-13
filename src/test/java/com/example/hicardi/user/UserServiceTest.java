@@ -39,4 +39,22 @@ public class UserServiceTest {
         userRepository.save(saveUser);
 
     }
+
+    @Test
+    public void isDuplicateTest(){
+        String type="loginId";
+        String keyword = "kusitms2";
+        boolean isDuplicate;
+
+        if(type.equals("loginId")){
+            isDuplicate= userRepository.existsByLoginId(keyword);
+        }else if(type.equals("businessNumber")){
+            isDuplicate = userRepository.existsByBusinessNumber(keyword);
+        }else {
+            isDuplicate=false;
+        }
+
+        System.out.println("중복인가요? : "+isDuplicate);
+
+    }
 }
