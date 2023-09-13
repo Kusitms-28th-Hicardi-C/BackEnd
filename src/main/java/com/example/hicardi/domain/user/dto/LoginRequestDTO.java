@@ -9,7 +9,6 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class LoginRequestDTO {
-
     private String loginId;
     private String password;
 }
