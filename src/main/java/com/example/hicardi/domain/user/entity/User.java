@@ -1,5 +1,6 @@
 package com.example.hicardi.domain.user.entity;
 
+import com.example.hicardi.domain.cart.entity.Cart;
 import com.example.hicardi.domain.user.dto.BUSINESS;
 import com.example.hicardi.domain.user.dto.GENDER;
 import com.example.hicardi.domain.user.dto.MEMBERSHIP;
@@ -82,4 +83,8 @@ public class User {
     @Column(name="updated_at")
     private LocalDateTime updateAt;
 
+    @ToString.Exclude
+    @Builder.Default
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<Cart> carts = new ArrayList<>();
 }
