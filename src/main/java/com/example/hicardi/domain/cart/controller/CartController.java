@@ -17,7 +17,13 @@ public class CartController {
     private final CartService cartService;
 
     //장바구니에 제품 추가
+    @PostMapping("/{productId}")
+    public ResponseEntity<?> addCartItem(CartRequestDTO dto,HttpServletRequest request) {
+        String userId = (String) request.getAttribute("UserId");
+        cartService.addCart(userId,dto);
 
+        return ResponseEntity.ok().body();
+    }
     //장바구니 전체 조회
 
     //장바구니 수정
