@@ -34,7 +34,7 @@ public class ProductController {
     @GetMapping("/{productId}")
     public BaseResponse<ProductDto.Response> post (@PathVariable("productId") Long id) throws ParseException {
 
-        Product product = productService.findById(id);
+        Product product = productService. findById(id);
 
         return BaseResponse.onSuccess(new ProductDto.Response(product));
     }
