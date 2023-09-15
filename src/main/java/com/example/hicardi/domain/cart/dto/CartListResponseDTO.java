@@ -15,6 +15,8 @@ import java.util.List;
 public class CartListResponseDTO {
 
     private List<CartListDataResponseDTO> carts; //카드 정보들
+//    private Long cartId;
+//    private int quantity;
 
     private int totalPrice; //총 금액
 

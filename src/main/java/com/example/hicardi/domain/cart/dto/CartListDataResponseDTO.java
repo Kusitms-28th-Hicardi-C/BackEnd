@@ -17,13 +17,13 @@ public class CartListDataResponseDTO {
 
     private Long cartId;
     private int quantity; //수량
-    private User user;
-    private Product product;
+    private String productName;
+    private String price;
 
     public CartListDataResponseDTO(Cart cart) {
         this.cartId=cart.getCartId();
         this.quantity=cart.getQuantity();
-        this.user=cart.getUser();
-        this.product=cart.getProduct();
+        this.productName=cart.getProduct().getName();
+        this.price=cart.getProduct().getPrice();
     }
 }

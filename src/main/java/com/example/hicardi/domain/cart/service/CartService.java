@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -57,17 +58,17 @@ public class CartService {
     }
 
     //유저의 카트 전체 정보 + 총합
-//    public CartListResponseDTO getAllUserCart(Long memberId) {
-//
-//        List<Cart> userCartList = cartRepository.findByUserMemberId(memberId);
-//        int totalPrice = countTotalPrice(userCartList);
-//
-//        List<CartListDataResponseDTO> list = userCartList.stream()
-//        .map(cart->new CartListDataResponseDTO(cart)).collect(Collectors.toList());
-//
-//        return new CartListResponseDTO(list,totalPrice);
-//
-//    }
+    public CartListResponseDTO getAllUserCart(Long memberId) {
+
+        List<Cart> userCartList = cartRepository.findByUserMemberId(memberId);
+        int totalPrice = countTotalPrice(userCartList);
+
+        List<CartListDataResponseDTO> cartResponseList = userCartList.stream()
+        .map(cart->new CartListDataResponseDTO(cart)).collect(Collectors.toList());
+
+        return new CartListResponseDTO(cartResponseList,totalPrice);
+
+    }
 
     // 장바구니에 들어있는 상품들의 총 가격을 계산
     public int countTotalPrice(List<Cart> userCartList){
