@@ -1,9 +1,6 @@
 package com.example.hicardi.domain.cart.controller;
 
-import com.example.hicardi.domain.cart.dto.CartListResponseDTO;
-import com.example.hicardi.domain.cart.dto.CartModifyRequesDTO;
-import com.example.hicardi.domain.cart.dto.CartRequestDTO;
-import com.example.hicardi.domain.cart.dto.cartResponseDTO;
+import com.example.hicardi.domain.cart.dto.*;
 import com.example.hicardi.domain.cart.entity.Cart;
 import com.example.hicardi.domain.cart.service.CartService;
 import com.example.hicardi.domain.user.dto.SignUpRequestDTO;
@@ -29,22 +26,23 @@ public class CartController {
     private final UserService userService;
 
     //장바구니 전체 조회
-//    @GetMapping
-//    public ResponseEntity<?> cartMainPage(HttpServletRequest request
-//    ) {
-////            Long memberId = (Long)request.getAttribute(LoginUtil.LOGIN_KEY);
-//        Long memberId = 1L;
-//
-//        if(memberId==null) throw new RuntimeException("로그인 먼저 진행하세유~~");
-//
-//        // 장바구니에 들어있는 아이템 모두 가져오기 : list
-//        CartListResponseDTO allUserCart = cartService.getAllUserCart(memberId);
-//
-//        return ResponseEntity
-//                .ok()
-//                .body(allUserCart);
-//
-//    }
+    @GetMapping("/list")
+    public ResponseEntity<?> cartMainPage(HttpServletRequest request
+    ) {
+//            Long memberId = (Long)request.getAttribute(LoginUtil.LOGIN_KEY);
+        Long memberId = 1L;
+        User user = userService.findUserByMemberId(memberId);
+
+        if(user==null) throw new RuntimeException("로그인 먼저 진행하세유~~");
+
+        // 장바구니에 들어있는 아이템 모두 가져오기 : list
+        CartListResponseDTO allUserCart = cartService.getAllUserCart(memberId);
+
+        return ResponseEntity
+                .ok()
+                .body(allUserCart);
+
+    }
 
 
 
@@ -58,8 +56,6 @@ public class CartController {
 
         User user = userService.findUserByMemberId(memberId);
 
-
-
         try {
             cartResponseDTO cartResponseDTO = cartService.cartAdd(memberId, dto);
             return ResponseEntity.ok().body(cartResponseDTO);
@@ -71,7 +67,7 @@ public class CartController {
     }
 
     //장바구니 수정
-    @PutMapping
+    @PutMapping("/modify")
     public ResponseEntity<?> modifyCart(@Validated @RequestBody CartModifyRequesDTO dto){
         cartResponseDTO cartResponseDTO = cartService.modifyCart(dto);
 
