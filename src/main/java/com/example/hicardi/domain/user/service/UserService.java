@@ -53,9 +53,7 @@ public class UserService {
 
     public LoginResponseDTO authenticate(final LoginRequestDTO dto) {
 
-        User user = userRepository.findByLoginId(dto.getLoginId());
-
-
+        User user = findUserByloginId(dto.getLoginId());
 
         String rawPassword = dto.getPassword();//사용자가 입력한 비번
         String dbPassword = user.getPassword();//db에 저장된 비번
@@ -78,9 +76,20 @@ public class UserService {
     
     //세션 처리
     public void handleSession(HttpSession session, String loginId) {
-        session.setAttribute(LoginUtil.LOGIN_KEY,loginId);
+        User user = findUserByloginId(loginId);
+
+        session.setAttribute(LoginUtil.LOGIN_KEY,user.getMemberId());
         System.out.println("session : "+ session.getAttribute(LoginUtil.LOGIN_KEY));
         // 세션의 수명을 설정 -> 1시간
         session.setMaxInactiveInterval(60 * 60 * 24);
     }
+
+    public User findUserByloginId(String loginId){
+        return userRepository.findByLoginId(loginId);
+    }
+    public User findUserByMemberId(Long memberId){
+        return userRepository.findByMemberId(memberId);
+    }
 }
+
+
