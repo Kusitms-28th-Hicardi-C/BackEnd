@@ -37,10 +37,11 @@ public class Product {
     private LocalDateTime createdDate;
 
     @Column
-    private String product;
+    private String productInfo;
 
     @Column
     private String option;
+
 
 
 }
