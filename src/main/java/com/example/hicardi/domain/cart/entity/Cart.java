@@ -1,5 +1,6 @@
 package com.example.hicardi.domain.cart.entity;
 
+import com.example.hicardi.domain.cart.dto.CartListDataResponseDTO;
 import com.example.hicardi.domain.cart.dto.CartRequestDTO;
 import com.example.hicardi.domain.product.entity.Product;
 import com.example.hicardi.domain.user.entity.User;

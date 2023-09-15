@@ -15,12 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 @Slf4j
 public class CartRequestDTO {
-    private int productId;//제품 번호
+    private Long productId;//제품 번호
     private int quantity; //개수
 
-    public Cart toEntity(User user){
+    public Cart toEntity(User user,Product product){
         return Cart.builder()
-//                .product(product)
+                .product(product)
                 .quantity(this.quantity)
                 .user(user)
                 .build();
