@@ -4,8 +4,8 @@ package com.example.hicardi.domain.cart.service;
 import com.example.hicardi.domain.cart.dto.*;
 import com.example.hicardi.domain.cart.entity.Cart;
 import com.example.hicardi.domain.cart.repository.CartRepository;
+import com.example.hicardi.domain.product.Repository.ProductRepository;
 import com.example.hicardi.domain.product.entity.Product;
-import com.example.hicardi.domain.product.entity.ProductRepository;
 import com.example.hicardi.domain.user.entity.User;
 import com.example.hicardi.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
-import static org.springframework.data.repository.util.ReactiveWrapperConverters.map;
 
 @Service
 @Slf4j
