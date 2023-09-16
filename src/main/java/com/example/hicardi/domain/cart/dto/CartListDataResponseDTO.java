@@ -21,6 +21,8 @@ public class CartListDataResponseDTO {
     private String price;
     private String url;
 
+    private Long productId;
+
     public CartListDataResponseDTO(Cart cart) {
         this.cartId=cart.getCartId();
         this.quantity=cart.getQuantity();
