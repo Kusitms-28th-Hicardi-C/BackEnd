@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/Faq")
+@RequestMapping("/faq")
 @RequiredArgsConstructor
 public class FaqController {
 
