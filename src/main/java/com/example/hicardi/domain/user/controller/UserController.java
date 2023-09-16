@@ -37,7 +37,6 @@ public class UserController {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
-
     }
 
     //아이디&사업자번호 중복확인
