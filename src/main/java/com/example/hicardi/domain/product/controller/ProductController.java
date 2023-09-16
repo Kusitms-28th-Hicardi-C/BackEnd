@@ -1,5 +1,9 @@
 package com.example.hicardi.domain.product.controller;
 
+import com.example.hicardi.domain.Faq.dto.FaqDto;
+import com.example.hicardi.domain.Faq.entity.Faq;
+import com.example.hicardi.domain.Faq.service.FaqService;
+import com.example.hicardi.domain.blog.service.BlogService;
 import com.example.hicardi.domain.product.dto.ProductDto;
 import com.example.hicardi.domain.product.entity.Product;
 import com.example.hicardi.domain.product.service.ProductService;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +26,7 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     private final ProductService productService;
+
     private final ModelMapper modelMapper;
     @GetMapping("/list")
     public BaseResponse<List<ProductDto.Response>> postList(){
@@ -37,6 +43,18 @@ public class ProductController {
         Product product = productService. findById(id);
 
         return BaseResponse.onSuccess(new ProductDto.Response(product));
+    }
+
+    @GetMapping("/list/{keyword}")
+    public BaseResponse<List<ProductDto.Response>> list(@PathVariable("keyword") String keyword){
+
+        List<Product> productList = productService.findByKeyword(keyword);
+        //List<Faq> faqList = faqService.findByKeyword(keyword);
+
+        List<ProductDto.Response> resultDto = productList.stream()
+                .map(data-> modelMapper.map(data, ProductDto.Response.class))
+                .collect(Collectors.toList());
+        return BaseResponse.onSuccess(resultDto);
     }
 
 }

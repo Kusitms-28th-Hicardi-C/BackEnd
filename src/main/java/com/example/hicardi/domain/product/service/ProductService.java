@@ -18,5 +18,9 @@ public class ProductService {
     public List<Product> findByAll(){
         return productRepository.findAll();
     }
+    public List<Product> findByKeyword(String keyword){
+        return productRepository.findProductByDescriptionLikeAndNameLike(keyword);
+    }
+
 
 }

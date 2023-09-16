@@ -1,10 +1,9 @@
 package com.example.hicardi.domain.Faq.controller;
 
+
 import com.example.hicardi.domain.Faq.dto.FaqDto;
 import com.example.hicardi.domain.Faq.entity.Faq;
 import com.example.hicardi.domain.Faq.service.FaqService;
-import com.example.hicardi.domain.product.dto.ProductDto;
-import com.example.hicardi.domain.product.entity.Product;
 import com.example.hicardi.global.exception.base.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -47,6 +46,17 @@ public class FaqController {
 
         return BaseResponse.onSuccess(new FaqDto.Response(faq));
     }
+    @GetMapping("/{keyword}")
+    public BaseResponse<List<FaqDto.Response>> categorydetailList(@PathVariable("keyword") String keyword){
+
+        System.out.println(keyword);
+        List<Faq> faqList = faqService.findByKeyword(keyword);
+        List<FaqDto.Response> resultDto = faqList.stream()
+                .map(data-> modelMapper.map(data, FaqDto.Response.class))
+                .collect(Collectors.toList());
+        return BaseResponse.onSuccess(resultDto);
+    }
 
 
 }
+//qna blog product
