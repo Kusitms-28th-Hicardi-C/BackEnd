@@ -20,7 +20,7 @@ public class BlogController {
     private final BlogService blogService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> blogMainPage(@Validated @RequestBody BlogSearch search) {
+    public ResponseEntity<?> blogMainPage(@Validated @RequestParam BlogSearch search) {
         List<BlogListResponseDTO> all = blogService.findAll(search);
 
         return ResponseEntity
