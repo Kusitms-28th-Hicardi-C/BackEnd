@@ -26,4 +26,9 @@ public class FaqService {
 
     }
 
+    public List<Faq> findByKeyword(String keyword){
+        String sql = "%"+keyword+"%";
+        return faqRepository.findFaqByQuestionLikeAndAnswerLike(sql);
+    }
+
 }
