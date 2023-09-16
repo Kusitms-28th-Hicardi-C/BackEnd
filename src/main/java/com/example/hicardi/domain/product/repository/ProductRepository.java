@@ -1,4 +1,4 @@
-package com.example.hicardi.domain.product.Repository;
+package com.example.hicardi.domain.product.repository;
 
 import com.example.hicardi.domain.product.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
