@@ -19,6 +19,7 @@ public class CartListDataResponseDTO {
     private int quantity; //수량
     private String productName;
     private String price;
+    private String url;
 
     public CartListDataResponseDTO(Cart cart) {
         this.cartId=cart.getCartId();
