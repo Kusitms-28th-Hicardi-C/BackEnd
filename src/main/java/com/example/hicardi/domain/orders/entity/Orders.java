@@ -1,5 +1,7 @@
 package com.example.hicardi.domain.orders.entity;
 
+import com.example.hicardi.domain.product.entity.Product;
+import com.example.hicardi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +22,30 @@ public class Orders {
     @Column(name = "order_id")
     private Long orderId;
 
+    @Column
+    private String name;
+
+
+    @Column
+    private String address;
+
+    @Column
+    private String number;
+
+    @Column
+    private String email;
+
+    @Column
+    private String price;
+    @Column
+    private String quantity;
+    @Column
+    private String category;
+
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private User user;
 
 }
