@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,24 +22,26 @@ public class BlogService {
     private final BlogRepository blogRepository;
 
     //전체 조회
-    public List<BlogListResponseDTO> findAll(BlogSearch search) {
-        //카테고리 검색
-        if(search.getCategory()!=""&&search.getKeyword()==""){
-            return blogRepository.findByCategoryContaining(search.getCategory()).stream()
-                    .map(blog -> new BlogListResponseDTO(blog)).collect(Collectors.toList());
-        }
-        //검색어로 검색
-        else if(search.getCategory()==""&&search.getKeyword()!=""){
-            return blogRepository.findByKeywordInTitleOrContent(search.getKeyword()).stream()
-                    .map(blog -> new BlogListResponseDTO(blog)).collect(Collectors.toList());
-        }
-        //키워드, 검색어 없이 전체 조회 할 시
+    public List<BlogListResponseDTO> findAll() {
         return blogRepository.findAll().stream()
                 .map(blog -> new BlogListResponseDTO(blog)).collect(Collectors.toList());
+    }
+
+    //카테고리 검색
+    public List<BlogListResponseDTO> findAllByCategory(String category) {
+            return blogRepository.findByCategoryContaining(category).stream()
+                    .map(blog -> new BlogListResponseDTO(blog)).collect(Collectors.toList());
+    }
+
+    //키워드 검색
+    public List<BlogListResponseDTO> findAllByKeyword(String keyword) {
+            return blogRepository.findByKeywordInTitleOrContent(keyword).stream()
+                    .map(blog -> new BlogListResponseDTO(blog)).collect(Collectors.toList());
     }
 
     public BlogListResponseDTO findById(Long id) {
         Blog blog = blogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글 존재x. id=" + id));
         return new BlogListResponseDTO(blog);
     }
+
 }

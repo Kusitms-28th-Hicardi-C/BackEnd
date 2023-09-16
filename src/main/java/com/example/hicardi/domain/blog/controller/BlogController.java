@@ -19,13 +19,34 @@ public class BlogController {
 
     private final BlogService blogService;
 
+    //전체조회
     @GetMapping("/list")
-    public ResponseEntity<?> blogMainPage(@Validated @RequestParam BlogSearch search) {
-        List<BlogListResponseDTO> all = blogService.findAll(search);
+    public ResponseEntity<?> blogMainPage() {
+        List<BlogListResponseDTO> all = blogService.findAll();
 
         return ResponseEntity
                 .ok()
                 .body(all);
+    }
+
+    //키워드 검색
+    @GetMapping("/keyword")
+    public ResponseEntity<?> blogSearchWithKeyword(@Validated @RequestParam String keyword) {
+        List<BlogListResponseDTO> searchAll = blogService.findAllByKeyword(keyword);
+
+        return ResponseEntity
+                .ok()
+                .body(searchAll);
+    }
+
+    //카테고리 검색
+    @GetMapping("/category")
+    public ResponseEntity<?> blogSearchWithCategory(@Validated @RequestParam String category) {
+        List<BlogListResponseDTO> searchAll = blogService.findAllByCategory(category);
+
+        return ResponseEntity
+                .ok()
+                .body(searchAll);
     }
 
     //상세 조회
