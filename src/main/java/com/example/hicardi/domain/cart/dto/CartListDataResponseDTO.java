@@ -17,16 +17,11 @@ public class CartListDataResponseDTO {
 
     private Long cartId;
     private int quantity; //수량
-    private String productName;
-    private String price;
-    private String url;
-
     private Long productId;
 
     public CartListDataResponseDTO(Cart cart) {
         this.cartId=cart.getCartId();
         this.quantity=cart.getQuantity();
-        this.productName=cart.getProduct().getName();
-        this.price=cart.getProduct().getPrice();
+        this.productId=cart.getProduct().getProductId();
     }
 }
