@@ -26,6 +26,7 @@ public class CartController {
     private final UserService userService;
 
     //장바구니 전체 조회
+    @CrossOrigin
     @GetMapping("/list")
     public ResponseEntity<?> cartMainPage(HttpServletRequest request
     ) {
