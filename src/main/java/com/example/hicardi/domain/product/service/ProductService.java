@@ -1,6 +1,6 @@
 package com.example.hicardi.domain.product.service;
 
-import com.example.hicardi.domain.product.Repository.ProductRepository;
+import com.example.hicardi.domain.product.repository.ProductRepository;
 import com.example.hicardi.domain.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
