@@ -1,4 +1,4 @@
-package com.example.hicardi.domain.Faq.entity;
+package com.example.hicardi.domain.orders.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,20 +12,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name="faq")
+@Table(name="orders")
 @EntityListeners(AuditingEntityListener.class)
-public class Faq {
-
+public class Orders {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "question_id")
-    private Long faqId;
+    @Column(name = "order_id")
+    private Long orderId;
 
-    @Column
-    private String question;
-    @Column
-    private String answer;
-    @Column
-    private String category;
 
 }
