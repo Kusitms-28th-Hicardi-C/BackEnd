@@ -85,6 +85,6 @@ public class User {
 
     @ToString.Exclude
     @Builder.Default
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Cart> carts = new ArrayList<>();
 }

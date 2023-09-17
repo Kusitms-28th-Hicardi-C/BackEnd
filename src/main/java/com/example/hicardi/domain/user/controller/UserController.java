@@ -1,18 +1,26 @@
 package com.example.hicardi.domain.user.controller;
 
+import com.example.hicardi.domain.product.dto.ProductDto;
+import com.example.hicardi.domain.product.entity.Product;
 import com.example.hicardi.domain.user.dto.LoginRequestDTO;
 import com.example.hicardi.domain.user.dto.LoginResponseDTO;
 import com.example.hicardi.domain.user.dto.SignUpRequestDTO;
+import com.example.hicardi.domain.user.dto.UserDto;
 import com.example.hicardi.domain.user.entity.User;
 import com.example.hicardi.domain.user.service.UserService;
+import com.example.hicardi.global.exception.base.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-
+    private final ModelMapper modelMapper;
     //회원가입
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUpUser(@Validated @RequestBody SignUpRequestDTO dto
@@ -70,6 +78,17 @@ public class UserController {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @GetMapping("/list")
+    public BaseResponse<List<UserDto>> list(){
+
+        List<User> userList = userService.findByAll();
+        //List<Faq> faqList = faqService.findByKeyword(keyword);
+        List<UserDto> resultDto = userList.stream()
+                .map(data-> modelMapper.map(data, UserDto.class))
+                .collect(Collectors.toList());
+
+        return BaseResponse.onSuccess(resultDto);
     }
 
 }
