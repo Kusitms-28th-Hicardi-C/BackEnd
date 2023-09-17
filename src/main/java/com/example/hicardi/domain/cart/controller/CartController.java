@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 @RequestMapping("/api/v1/cart")
 @Slf4j
 public class CartController {
@@ -26,7 +27,6 @@ public class CartController {
     private final UserService userService;
 
     //장바구니 전체 조회
-    @CrossOrigin
     @GetMapping("/list")
     public ResponseEntity<?> cartMainPage(HttpServletRequest request
     ) {
@@ -48,7 +48,6 @@ public class CartController {
 
 
     //장바구니에 추가
-    @CrossOrigin
     @PostMapping("/add")
     public ResponseEntity<?> addCart(@Validated @RequestBody CartRequestDTO dto, HttpServletRequest request
     ) {
@@ -69,7 +68,6 @@ public class CartController {
     }
 
     //장바구니 수정
-    @CrossOrigin
     @PutMapping("/modify")
     public ResponseEntity<?> modifyCart(@Validated @RequestBody CartModifyRequesDTO dto){
         cartResponseDTO cartResponseDTO = cartService.modifyCart(dto);
@@ -78,7 +76,6 @@ public class CartController {
     }
 
     //장바구니 제품 삭제
-    @CrossOrigin
     @DeleteMapping("/{cartId}")
     public ResponseEntity<?> deleteCart(@PathVariable Long cartId, HttpServletRequest request
     ) {
