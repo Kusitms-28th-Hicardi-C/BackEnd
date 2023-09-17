@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 @Slf4j
+@CrossOrigin
 @SessionAttributes("user")
 public class UserController {
 
     private final UserService userService;
 
     //회원가입
-    @CrossOrigin
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUpUser(@Validated @RequestBody SignUpRequestDTO dto
     ) {
@@ -41,9 +41,8 @@ public class UserController {
     }
 
     //아이디&사업자번호 중복확인
-    @CrossOrigin
     @GetMapping("/check-duplicate")
-    public ResponseEntity<?> check(String type,String keyword) {
+    public ResponseEntity<?> check(@RequestParam String type, @RequestParam String keyword) {
         log.info("/user/check-business-number GET! --{} --{}", type, keyword);
 
         if(keyword.trim().equals("")){
@@ -57,7 +56,6 @@ public class UserController {
     }
 
     //로그인
-    @CrossOrigin
     @PostMapping("/sign-in")
     public ResponseEntity<?> signIn(
             @Validated @RequestBody LoginRequestDTO dto, HttpServletRequest request
